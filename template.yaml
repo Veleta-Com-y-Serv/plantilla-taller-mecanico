@@ -22,7 +22,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: industrial
 plan_minimo: gratis
-version: 1.0.0
+version: 1.0.1
 base: astrowind
 demo_url: https://demo-plantilla-taller-mecanico.noexpertise.com
 activa: true
