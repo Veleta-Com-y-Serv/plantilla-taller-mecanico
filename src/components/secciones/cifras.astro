@@ -1,0 +1,48 @@
+---
+// Cifras: banda naranja a todo el ancho con números estrechos enormes separados por filetes carbón, como un
+// cuadro de mandos. `items: [{titulo (la cifra, "+300"), texto}]`. No se pinta si la lista está vacía (la
+// plataforma nunca inventa cifras).
+import { seccion } from '../../data/site';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+---
+
+{
+  s && items.length > 0 && (
+    <section id={Astro.props.id} class="banda-naranja seccion">
+      <div class="contenedor">
+        {(s.antetitulo || s.titulo) && (
+          <div class="cifras-cabeza">
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="cifras-titulo">{s.titulo}</h2>}
+          </div>
+        )}
+        <dl class="cifras" style={`--n:${Math.min(items.length, 4)}`}>
+          {items.map((it) => (
+            <div class="cifra">
+              <dt class="cifra-numero num">{it.titulo}</dt>
+              {it.texto && <dd class="cifra-texto">{it.texto}</dd>}
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .cifras-cabeza { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 2rem; padding-bottom: 1.5rem; margin-bottom: 2.5rem; border-bottom: 3px solid currentColor; }
+  .cifras-titulo { font-size: clamp(1.8rem, 5vw, 2.75rem); }
+  .cifras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 0; }
+  @media (min-width: 900px) { .cifras { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); } }
+  .cifra { min-width: 0; padding-inline: 0 1rem; }
+  .cifra:nth-child(2n) { padding-left: 1rem; border-left: 2px solid currentColor; }
+  @media (min-width: 900px) {
+    .cifra, .cifra:nth-child(2n) { padding-inline: 2rem; border-left: 2px solid currentColor; }
+    .cifra:first-child { padding-left: 0; border-left: 0; }
+  }
+  .cifra-numero { font-size: clamp(2.75rem, 12vw, 4.5rem); line-height: .85; letter-spacing: -0.02em; overflow-wrap: break-word; }
+  @media (min-width: 900px) { .cifra-numero { font-size: clamp(3.5rem, 6.5vw, 6.25rem); } }
+  .cifra-texto { margin-top: .75rem; font-weight: 800; text-transform: uppercase; font-size: .85rem; letter-spacing: .1em; }
+</style>

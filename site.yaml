@@ -1,0 +1,167 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Una sola página: el menú apunta a anclas (#id-de-sección).
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios y cifras, siempre entre comillas.
+nombre: Talleres Arlanzón
+eslogan: Mecánica, neumáticos y pre-ITV en Burgos. Te decimos el precio antes de tocar el coche.
+sector: taller
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto con marca naranja.
+colores:
+  primario: "#ff6b1a"   # naranja (botones, banda de marcas, cifras, franjas)
+  acento: "#b8430b"     # naranja tostado (textos y detalles naranjas sobre fondo claro, foco)
+  fondo: "#ffffff"
+  texto: "#1f2226"      # gris carbón: la letra y también las bandas oscuras
+contacto:
+  telefono: "947 38 15 20"
+  email: citas@talleresarlanzon.es
+  direccion: Calle Alcalde Martín Cobos 18, 09007 Burgos (Burgos)
+  horario: "Lunes a viernes, de 8:00 a 14:00 y de 15:30 a 19:30. Sábados, de 9:00 a 13:00."
+  whatsapp: "+34 641 27 90 58"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Servicios, url: "/#servicios" }
+  - { texto: El taller, url: "/#sobre" }
+  - { texto: Tarifas, url: "/#tarifas" }
+  - { texto: Opiniones, url: "/#opiniones" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pedir cita, url: "/#cita" }
+seo:
+  titulo: Talleres Arlanzón · Taller mecánico y neumáticos en Burgos
+  descripcion: "Taller mecánico multimarca en Burgos: revisiones, frenos, neumáticos, diagnosis, aire acondicionado y pre-ITV. Presupuesto antes de empezar."
+  tipo: AutoRepair
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Taller multimarca en Burgos
+    titulo: Tu coche, a punto y sin sorpresas
+    texto: "Mecánica, neumáticos y electrónica para todas las marcas. Te llamamos con el presupuesto antes de empezar y lo cumplimos."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Pedir cita, url: "/#cita" }
+    cta_secundario: { texto: Llamar al taller, url: "tel:+34947381520" }
+
+  servicios:
+    activa: true
+    antetitulo: Servicios
+    titulo: Todo lo que necesita tu coche, en un solo taller
+    texto: "Turismos, furgonetas, híbridos y eléctricos. Con recambio de primera marca y garantía por escrito."
+    cta: { texto: Pide cita para tu coche, url: "/#cita" }
+    items:
+      - { titulo: Revisión y mantenimiento, texto: "Aceite, filtros y puntos de control según el libro del fabricante. Sin perder la garantía.", icono: llave }
+      - { titulo: Frenos, texto: "Pastillas, discos, líquido y prueba en banco de frenos.", icono: freno }
+      - { titulo: Neumáticos, texto: "Montaje, equilibrado, alineado y almacenaje de tus ruedas de invierno.", icono: rueda }
+      - { titulo: Diagnosis electrónica, texto: "Leemos las averías de la centralita y te explicamos qué pasa.", icono: diagnosis }
+      - { titulo: Aire acondicionado, texto: "Carga de gas, revisión de fugas y limpieza del circuito.", icono: copo }
+      - { titulo: Distribución y embrague, texto: "Kits de distribución, bombas de agua y embragues completos.", icono: engranaje }
+      - { titulo: Batería y arranque, texto: "Comprobación gratis de batería, alternador y motor de arranque.", icono: bateria }
+      - { titulo: Pre-ITV, texto: "Repasamos el coche antes de la inspección y, si quieres, te lo llevamos.", icono: escudo }
+
+  marcas:
+    activa: true
+    antetitulo: Multimarca
+    titulo: Trabajamos todas las marcas
+    texto: "Con los equipos de diagnosis y los datos técnicos de cada fabricante."
+    items:
+      - { titulo: Seat }
+      - { titulo: Renault }
+      - { titulo: Peugeot }
+      - { titulo: Citroën }
+      - { titulo: Volkswagen }
+      - { titulo: Toyota }
+      - { titulo: Ford }
+      - { titulo: Opel }
+      - { titulo: Kia }
+      - { titulo: Hyundai }
+      - { titulo: Dacia }
+      - { titulo: Nissan }
+
+  sobre:
+    activa: true
+    antetitulo: El taller
+    titulo: Treinta años arreglando coches en Gamonal
+    texto: "Empezó el abuelo con un foso y dos llaves inglesas. Hoy somos cinco mecánicos con elevadores, banco de frenos y equipos de diagnosis para coches de cualquier año.\n\nLo que no ha cambiado es la forma de trabajar: te enseñamos la pieza que cambiamos y no hacemos nada que no hayas aprobado antes."
+    imagen: /fotos/taller.jpg
+    galeria:
+      - /fotos/galeria-1.jpg
+      - /fotos/galeria-2.jpg
+      - /fotos/galeria-3.jpg
+      - /fotos/galeria-4.jpg
+    items:
+      - { titulo: Presupuesto antes de empezar, icono: euro }
+      - { titulo: Garantía por escrito, icono: escudo }
+      - { titulo: Coche de cortesía, icono: coche }
+      - { titulo: Recambio de primera marca, icono: engranaje }
+    cta: { texto: Ven a conocernos, url: "/#contacto" }
+
+  cita:
+    activa: true
+    antetitulo: Cita previa
+    titulo: Reserva tu hueco en el taller
+    texto: "Dinos qué coche es y qué le pasa. Te confirmamos el día y la hora por teléfono o WhatsApp."
+    imagen: /fotos/cita.jpg
+    nota: "Sin compromiso. Te contestamos el mismo día laborable."
+    boton_formulario: Pedir cita
+    items:
+      - { titulo: Elige el día, texto: "Pon la fecha que te venga bien y te la confirmamos.", icono: calendario }
+      - { titulo: Trae el coche, texto: "Lo miramos delante de ti si quieres y te decimos qué tiene.", icono: coche }
+      - { titulo: Te llamamos con el precio, texto: "No tocamos nada hasta que nos digas que sí.", icono: telefono }
+
+  tarifas:
+    activa: true
+    antetitulo: Tarifas
+    titulo: Precios claros, sin letra pequeña
+    texto: "Precios orientativos con IVA para un turismo medio. Te damos el precio exacto de tu coche antes de empezar."
+    nota: "Mano de obra y piezas incluidas salvo que se indique."
+    tarifas:
+      - { nombre: Cambio de aceite y filtro, texto: "Aceite según fabricante hasta 5 litros.", precio: "desde 69 €", categoria: Mantenimiento }
+      - { nombre: Revisión completa, texto: "Aceite, cuatro filtros y 40 puntos de control.", precio: "desde 149 €", categoria: Mantenimiento }
+      - { nombre: Pre-ITV, texto: "Luces, frenos, holguras, emisiones y neumáticos.", precio: "25 €", categoria: Mantenimiento }
+      - { nombre: Pastillas delanteras, texto: "Montaje y prueba en banco de frenos.", precio: "desde 89 €", categoria: Frenos y ruedas }
+      - { nombre: Montaje y equilibrado, texto: "Por rueda, con válvula nueva.", precio: "12 €", categoria: Frenos y ruedas }
+      - { nombre: Alineado de dirección, texto: "Con informe impreso antes y después.", precio: "45 €", categoria: Frenos y ruedas }
+      - { nombre: Diagnosis electrónica, texto: "Lectura y borrado de averías con informe.", precio: "35 €", categoria: Electrónica y clima }
+      - { nombre: Carga de aire acondicionado, texto: "Gas, aceite y prueba de fugas.", precio: "desde 79 €", categoria: Electrónica y clima }
+      - { nombre: Prueba de batería, texto: "Batería, alternador y arranque.", precio: "Gratis", categoria: Electrónica y clima }
+
+  cifras:
+    activa: true
+    antetitulo: En números
+    titulo: Oficio de toda la vida
+    items:
+      - { titulo: "30", texto: años en Burgos }
+      - { titulo: "+4.000", texto: coches con ficha en el taller }
+      - { titulo: "5", texto: mecánicos titulados }
+      - { titulo: "1 año", texto: de garantía en reparaciones }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que dicen al recoger el coche
+    testimonios:
+      - { texto: "Me llamaron con el presupuesto antes de tocar nada y al final pagué lo que me dijeron. Así da gusto.", autor: Begoña M., nota: "Revisión y frenos, Gamonal" }
+      - { texto: "El coche no arrancaba un lunes a primera hora y a mediodía ya lo tenía. Me enseñaron la pieza vieja.", autor: Óscar R., nota: "Motor de arranque, Villimar" }
+      - { texto: "Llevo la furgoneta del trabajo desde hace años. Serios, rápidos y te explican las cosas claras.", autor: Luis Á., nota: "Mantenimiento de furgoneta, Burgos" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntáis en el mostrador
+    texto: "¿No encuentras la tuya? Llámanos y te lo contamos."
+    preguntas:
+      - { pregunta: "¿Pierdo la garantía del fabricante si hago la revisión aquí?", respuesta: "No. Seguimos el plan de mantenimiento del fabricante, usamos piezas de calidad equivalente y sellamos el libro de revisiones." }
+      - { pregunta: "¿Me dais el presupuesto antes de reparar?", respuesta: "Siempre. Miramos el coche, te llamamos con el precio cerrado y no empezamos hasta que nos digas que sí." }
+      - { pregunta: "¿Tenéis coche de sustitución?", respuesta: "Sí, para reparaciones de más de un día tenemos coche de cortesía. Pídelo al reservar la cita." }
+      - { pregunta: "¿Trabajáis con coches híbridos y eléctricos?", respuesta: "Sí. Tenemos mecánicos formados en alta tensión y los equipos de diagnosis necesarios para su mantenimiento." }
+      - { pregunta: "¿Me lleváis el coche a pasar la ITV?", respuesta: "Hacemos la pre-ITV y, si quieres, te lo llevamos a la estación y te lo devolvemos con la pegatina." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Pásate por el taller
+    texto: "En el polígono de Gamonal, con aparcamiento en la puerta. Si no puedes venir, te recogemos el coche."
+    imagen: /fotos/contacto.jpg

@@ -1,0 +1,101 @@
+---
+// Portada a pantalla (casi) completa: foto del taller a sangre con velo carbón, franjas de señalización en el
+// borde derecho, antetítulo, título enorme estrecho, `texto` y dos botones (`cta` = pedir cita, `cta_secundario`
+// = llamar con «tel:»). Abajo, barra de utilidades a todo el ancho con teléfono, horario y dirección de
+// site.yaml → contacto (solo lo que haya). Sin foto, banda carbón con rejilla técnica.
+import { seccion, site, tel, mapa } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const c = site.contacto;
+const esTel = (u?: string) => Boolean(u && u.startsWith('tel:'));
+const hayBarra = Boolean(c.telefono || c.horario || c.direccion);
+---
+
+{
+  s && (
+    <section id={id} class:list={['hero banda-carbon relative isolate flex flex-col overflow-hidden', { 'rejilla-tecnica': !s.imagen }]}>
+      {s.imagen && (
+        <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1080} prioridad={primera} class="absolute inset-0 -z-20 h-full w-full object-cover" />
+      )}
+      <div class="hero-velo absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="hero-franjas" aria-hidden="true" />
+      <div class="contenedor flex flex-1 flex-col justify-center py-16 md:py-24">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        {s.titulo && <h1 class="hero-titulo">{s.titulo}</h1>}
+        {s.texto && <p class="mt-6 max-w-2xl text-lg opacity-90 md:text-xl">{s.texto}</p>}
+        {(s.cta || s.cta_secundario) && (
+          <div class="mt-9 flex flex-wrap gap-3">
+            {s.cta && (
+              <a class="btn" href={s.cta.url}>
+                {esTel(s.cta.url) && <Icono nombre="telefono" tam={20} />}
+                {s.cta.texto}
+              </a>
+            )}
+            {s.cta_secundario && (
+              <a class="btn-sec" href={s.cta_secundario.url}>
+                {esTel(s.cta_secundario.url) && <Icono nombre="telefono" tam={20} />}
+                {s.cta_secundario.texto}
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+      {hayBarra && (
+        <div class="hero-barra">
+          <div class="contenedor hero-barra-rejilla">
+            {c.telefono && (
+              <a class="hero-dato hero-dato--tel" href={tel(c.telefono)}>
+                <Icono nombre="telefono" tam={26} class="shrink-0" />
+                <span class="num">{c.telefono}</span>
+              </a>
+            )}
+            {c.horario && (
+              <p class="hero-dato">
+                <Icono nombre="reloj" tam={22} class="shrink-0" />
+                <span>{c.horario}</span>
+              </p>
+            )}
+            {c.direccion && (
+              <a class="hero-dato hero-dato--dir" href={mapa(c.direccion)} rel="noopener" target="_blank">
+                <Icono nombre="mapa" tam={22} class="shrink-0" />
+                <span>{c.direccion}</span>
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .hero { min-height: calc(100svh - var(--alto-cabecera) - 3.5rem); }
+  @media (min-width: 768px) { .hero { min-height: calc(100svh - var(--alto-cabecera)); } }
+  @media (min-width: 1024px) { .hero { min-height: 88svh; } }
+  .hero-dato--dir { display: none; }
+  @media (min-width: 768px) { .hero-dato--dir { display: flex; } }
+  .hero-velo {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--c-texto) 35%, transparent) 0%, transparent 30%, color-mix(in srgb, var(--c-texto) 70%, transparent) 100%),
+      linear-gradient(95deg, color-mix(in srgb, var(--c-texto) 94%, transparent) 0%, color-mix(in srgb, var(--c-texto) 78%, transparent) 45%, color-mix(in srgb, var(--c-texto) 25%, transparent) 100%);
+  }
+  .hero-franjas { display: none; position: absolute; top: 0; bottom: 0; right: 0; width: clamp(2.5rem, 5vw, 5.5rem); z-index: -1; background: repeating-linear-gradient(-45deg, var(--c-primario) 0 22px, transparent 22px 44px); opacity: .9; }
+  @media (min-width: 1024px) { .hero-franjas { display: block; } }
+  .hero-titulo { margin-top: 1.25rem; max-width: 15ch; font-size: clamp(2.9rem, 11.5vw, 7.5rem); line-height: .88; letter-spacing: -0.01em; overflow-wrap: break-word; }
+  .hero-barra { position: relative; background: color-mix(in srgb, var(--c-texto) 92%, transparent); border-top: 4px solid var(--c-primario); }
+  .hero-barra-rejilla { display: grid; }
+  .hero-dato { display: flex; align-items: center; gap: .8rem; min-height: 3.5rem; padding-block: .9rem; font-size: .95rem; line-height: 1.35; text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--c-fondo) 14%, transparent); }
+  .hero-dato:last-child { border-bottom: 0; }
+  .hero-dato svg { color: var(--c-primario); }
+  a.hero-dato:hover span { text-decoration: underline; }
+  .hero-dato--tel { font-size: clamp(1.6rem, 6vw, 2.1rem); line-height: 1; }
+  @media (min-width: 768px) {
+    .hero-barra-rejilla { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+    .hero-dato { border-bottom: 0; border-left: 1px solid color-mix(in srgb, var(--c-fondo) 14%, transparent); padding: 1.25rem 1.5rem; }
+    .hero-dato:first-child { border-left: 0; padding-left: 0; }
+  }
+</style>

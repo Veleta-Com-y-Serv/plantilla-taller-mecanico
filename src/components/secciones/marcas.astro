@@ -1,0 +1,35 @@
+---
+// Marcas: banda naranja a todo el ancho entre dos franjas de señalización. A la izquierda, titular; a la derecha,
+// los nombres de las marcas en letra estrecha enorme separados por barras. Solo texto, sin logotipos.
+// `items: [{titulo}]`. Sin marcas no se pinta (la plataforma no las inventa).
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const marcas = s ? s.items.map((it) => (it?.titulo ? String(it.titulo) : '')).filter(Boolean) : [];
+---
+
+{
+  s && marcas.length > 0 && (
+    <section id={Astro.props.id} class="banda-naranja">
+      <div class="franja franja-oscura" aria-hidden="true" />
+      <div class="contenedor marcas-rejilla seccion">
+        <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <ul class="marcas-lista" aria-label={s.titulo || 'Marcas'}>
+          {marcas.map((m) => <li>{m}</li>)}
+        </ul>
+      </div>
+      <div class="franja franja-oscura" aria-hidden="true" />
+    </section>
+  )
+}
+
+<style>
+  .franja-oscura { background: repeating-linear-gradient(-45deg, var(--c-texto) 0 16px, transparent 16px 32px); }
+  .marcas-rejilla { display: grid; gap: 2.5rem; }
+  .marcas-rejilla :global(.titulo-seccion) { font-size: clamp(2.2rem, 7vw, 3.75rem); }
+  @media (min-width: 1024px) { .marcas-rejilla { grid-template-columns: minmax(18rem, 26rem) 1fr; gap: 4rem; align-items: center; } }
+  .marcas-lista { display: flex; flex-wrap: wrap; gap: .1rem 0; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; font-size: clamp(1.9rem, 7vw, 3.6rem); line-height: 1.05; }
+  .marcas-lista li { white-space: nowrap; }
+  .marcas-lista li:not(:last-child)::after { content: "/"; margin-inline: .35em; opacity: .4; }
+</style>

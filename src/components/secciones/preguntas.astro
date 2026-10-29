@@ -1,0 +1,56 @@
+---
+// Preguntas frecuentes: banda gris a todo el ancho partida en dos: titular fijo a la izquierda (con el teléfono si
+// lo hay) y acordeón nativo <details> a la derecha, filas separadas por filetes y chapa naranja con «+».
+// Sin JavaScript. Campos: `preguntas[]` (pregunta, respuesta). Sin preguntas no se pinta.
+// También sirve de diseño para apartados nuevos (`tipo: preguntas`).
+import { seccion, site, tel } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const preguntas = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+const telefono = site.contacto.telefono;
+---
+
+{
+  s && preguntas.length > 0 && (
+    <Seccion id={Astro.props.id} class="banda-gris">
+      <div class="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {telefono && (
+            <a class="btn btn-oscuro mt-8" href={tel(telefono)}>
+              <Icono nombre="telefono" tam={20} />
+              {telefono}
+            </a>
+          )}
+        </div>
+        <div class="faq-lista">
+          {preguntas.map((p) => (
+            <details class="faq">
+              <summary>
+                <span>{p.pregunta}</span>
+                <span class="faq-signo" aria-hidden="true"><span>+</span></span>
+              </summary>
+              {p.respuesta && <p class="faq-respuesta">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .faq-lista { border-top: 3px solid var(--c-texto); }
+  .faq { border-bottom: 1px solid color-mix(in srgb, var(--c-texto) 22%, transparent); }
+  .faq summary { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; min-height: 3.5rem; padding-block: 1.25rem; list-style: none; cursor: pointer; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: clamp(1.25rem, 3vw, 1.6rem); line-height: 1.1; text-transform: uppercase; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary:hover { color: var(--c-acento); }
+  .faq-signo { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; background: var(--c-primario); color: var(--sobre-primario); font-size: 1.75rem; clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); }
+  .faq-signo span { display: block; transition: transform .2s ease; }
+  .faq[open] .faq-signo { background: var(--c-texto); color: var(--c-primario); }
+  .faq[open] .faq-signo span { transform: rotate(45deg); }
+  .faq-respuesta { padding: 0 3.5rem 1.5rem 0; font-size: 1.08rem; opacity: .85; }
+</style>

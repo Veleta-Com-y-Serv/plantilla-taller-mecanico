@@ -1,0 +1,81 @@
+---
+// El taller (sobre nosotros): banda carbón partida 50/50 a sangre. La foto (`imagen`) toca el borde izquierdo de la
+// ventana; a la derecha, titular, párrafos (`texto`, separados por línea en blanco), compromisos (`items:
+// [{titulo, texto, icono}]`) en dos columnas y `cta`. Debajo, `galeria` (lista de fotos) en franja de borde a borde
+// sin márgenes. Sin foto, el texto ocupa el ancho en dos columnas.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion, altGaleria } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+const galeria = s ? s.galeria.filter(Boolean).slice(0, 8) : [];
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda-carbon">
+      <div class:list={['partida', s.imagen ? 'partida--md' : 'sobre--sin-foto']}>
+        {s.imagen && (
+          <div class="partida-foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} />
+            <span class="sobre-sello" aria-hidden="true" />
+          </div>
+        )}
+        <div class:list={['partida-texto', s.imagen ? 'partida-texto--der' : 'contenedor']}>
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          <div class="sobre-cuerpo">
+            {parrafos(s.texto).length > 0 && (
+              <div class="mt-7 space-y-4 text-lg opacity-90">
+                {parrafos(s.texto).map((p) => <p>{p}</p>)}
+              </div>
+            )}
+            {items.length > 0 && (
+              <ul class="sobre-items">
+                {items.map((it) => (
+                  <li>
+                    <span class="sobre-icono"><Icono nombre={it.icono} tam={22} /></span>
+                    <span>
+                      <span class="block font-display text-xl uppercase [font-stretch:condensed]">{it.titulo}</span>
+                      {it.texto && <span class="block text-sm opacity-75">{it.texto}</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          {s.cta && <a class="btn mt-10" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      </div>
+      {galeria.length > 0 && (
+        <ul class="sobre-galeria" style={`--n:${Math.min(galeria.length, 4)}`}>
+          {galeria.map((g, i) => (
+            <li>
+              <Imagen src={g} alt={altGaleria(i)} ancho={800} alto={800} class="aspect-square h-full w-full object-cover" />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .sobre-sello { position: absolute; right: 0; bottom: 0; width: 38%; height: 1.25rem; background: repeating-linear-gradient(-45deg, var(--c-primario) 0 14px, var(--c-texto) 14px 28px); }
+  .sobre-items { display: grid; gap: 1.1rem 2rem; margin-top: 2.25rem; padding-top: 2rem; border-top: 1px solid color-mix(in srgb, var(--c-fondo) 18%, transparent); }
+  @media (min-width: 640px) { .sobre-items { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 768px) and (max-width: 1199px) { .partida--md .sobre-items { grid-template-columns: 1fr; } }
+  .sobre-items li { display: flex; gap: .85rem; align-items: center; }
+  .sobre-icono { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; background: var(--c-primario); color: var(--sobre-primario); clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); }
+  .sobre--sin-foto { grid-template-columns: 1fr !important; }
+  @media (min-width: 1024px) {
+    .sobre--sin-foto .sobre-cuerpo { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  }
+  .sobre-galeria { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 768px) { .sobre-galeria { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); } }
+  .sobre-galeria li { overflow: hidden; }
+  .sobre-galeria :global(img) { transition: transform .4s ease; }
+  .sobre-galeria li:hover :global(img) { transform: scale(1.04); }
+</style>

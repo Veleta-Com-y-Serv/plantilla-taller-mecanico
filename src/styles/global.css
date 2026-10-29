@@ -1,0 +1,141 @@
+/* Taller mecánico — estilo industrial: gris carbón + naranja + blanco, franjas diagonales de señalización,
+   titulares estrechos en mayúsculas (pila de sistema «condensada»), esquinas achaflanadas como chapa cortada
+   y bandas a sangre que alternan carbón, naranja y claro.
+   Los cuatro colores vienen de site.yaml: las bandas oscuras usan --c-texto de fondo y --c-fondo de letra, así el
+   diseño se invierte solo si el cliente elige un fondo oscuro. Derivados con color-mix. */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Estrecha y con carácter, siempre del sistema: Bahnschrift (Windows), DIN Condensed (Apple), Roboto Condensed (Android). */
+  --fuente-titulos: "Bahnschrift SemiCondensed", "Bahnschrift", "DIN Condensed", "DIN Alternate", "Roboto Condensed", "Arial Narrow", sans-serif-condensed, "Helvetica Neue", system-ui, sans-serif;
+  --radio: 0; --ritmo: 4.5rem; --ritmo-md: 7rem; --ancho: 90rem;
+  --chaflan: .8rem;
+  --sobre-primario: var(--c-texto);
+  --superficie: color-mix(in srgb, var(--c-texto) 6%, var(--c-fondo));
+  --linea: color-mix(in srgb, var(--c-texto) 14%, transparent);
+  --noche: color-mix(in srgb, var(--c-texto) 82%, #000);
+  --alto-cabecera: 4.25rem;
+}
+/* Letra sobre el naranja: negra si el primario es claro, blanca si es oscuro. */
+@supports (color: oklch(from red l c h)) {
+  :root { --sobre-primario: oklch(from var(--c-primario) clamp(0, (0.62 - l) * 100, 1) 0 0); }
+}
+
+@layer base {
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.6; }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 700; font-stretch: condensed; text-transform: uppercase; letter-spacing: -0.005em; line-height: .95; }
+  html { scroll-padding-top: calc(var(--alto-cabecera) + 1rem); }
+}
+
+@layer components {
+  /* Antetítulo: texto pequeño espaciado con una franja de señalización delante */
+  .antetitulo { display: inline-flex; align-items: center; gap: .7rem; font-size: .78rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+  .antetitulo::before { content: ""; width: 2.4rem; height: .55rem; flex-shrink: 0; background: repeating-linear-gradient(-45deg, var(--c-primario) 0 6px, transparent 6px 11px); }
+  .banda-naranja .antetitulo::before { background: repeating-linear-gradient(-45deg, var(--sobre-primario) 0 6px, transparent 6px 11px); }
+  .banda-clara .antetitulo, .banda-gris .antetitulo { color: var(--c-acento); }
+  .titulo-seccion { font-size: clamp(2.4rem, 8.5vw, 5.25rem); margin-top: 1rem; }
+  .titular { margin-bottom: 3rem; }
+  .titular--centro { margin-inline: auto; text-align: center; }
+  .titular-texto { margin-top: 1.1rem; font-size: 1.15rem; max-width: 40rem; opacity: .85; }
+  .num { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* Botones: chapa con la esquina cortada, 48 px de alto */
+  .btn, .btn-sec { min-height: 3rem; padding-inline: 1.5rem; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.1rem; letter-spacing: .06em; text-transform: uppercase; border-radius: 0; }
+  .btn { background: var(--c-primario); color: var(--sobre-primario); clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--chaflan)), calc(100% - var(--chaflan)) 100%, 0 100%); padding-right: 1.8rem; }
+  .btn:hover { background: color-mix(in srgb, var(--c-primario) 82%, var(--c-fondo)); }
+  .btn-sec { border: 2px solid currentColor; background: color-mix(in srgb, currentColor 6%, transparent); }
+  .btn-sec:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
+  .btn-oscuro { background: var(--c-texto); color: var(--c-fondo); }
+  .btn-oscuro:hover { background: color-mix(in srgb, var(--c-texto) 85%, var(--c-fondo)); }
+
+  /* Bandas a todo el ancho */
+  .banda-clara { background: var(--c-fondo); color: var(--c-texto); }
+  .banda-gris { background: var(--superficie); color: var(--c-texto); }
+  .banda-carbon { background: var(--c-texto); color: var(--c-fondo); }
+  .banda-noche { background: var(--noche); color: var(--c-fondo); }
+  .banda-naranja { background: var(--c-primario); color: var(--sobre-primario); }
+  .banda-carbon :focus-visible, .banda-noche :focus-visible { outline-color: var(--c-primario); }
+  .banda-naranja :focus-visible { outline-color: var(--sobre-primario); }
+  /* Rejilla técnica (papel milimetrado) sobre las bandas oscuras */
+  .rejilla-tecnica { background-image: linear-gradient(color-mix(in srgb, var(--c-fondo) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--c-fondo) 5%, transparent) 1px, transparent 1px); background-size: 3rem 3rem; }
+  /* Franjas diagonales de señalización */
+  .franja { height: .7rem; background: repeating-linear-gradient(-45deg, var(--c-primario) 0 16px, var(--c-texto) 16px 32px); }
+
+  /* Filas partidas 50/50 a sangre: la foto toca el borde de la ventana, el texto se alinea con el contenedor. */
+  .partida { container-type: inline-size; display: grid; }
+  .partida-texto { padding: var(--ritmo) 1rem; min-width: 0; }
+  .partida-foto { position: relative; min-height: 18rem; overflow: hidden; }
+  .partida-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 768px) { .partida-texto { padding: var(--ritmo-md) 2rem; } .partida-foto { min-height: 26rem; } }
+  @media (min-width: 768px) {
+    .partida--md { grid-template-columns: 1fr 1fr; }
+    .partida--md .partida-texto--izq { padding-right: 2.5rem; }
+    .partida--md .partida-texto--der { padding-left: 2.5rem; }
+    .partida--md .partida-foto { min-height: 100%; }
+  }
+  @media (min-width: 1024px) {
+    .partida { grid-template-columns: 1fr 1fr; }
+    .partida-texto--izq, .partida--md .partida-texto--izq { padding-left: max(2rem, calc((100cqw - var(--ancho)) / 2 + 2rem)); padding-right: clamp(2rem, 5cqw, 5rem); }
+    .partida-texto--der, .partida--md .partida-texto--der { padding-right: max(2rem, calc((100cqw - var(--ancho)) / 2 + 2rem)); padding-left: clamp(2rem, 5cqw, 5rem); }
+    .partida-foto { min-height: 100%; }
+  }
+
+  /* Cabecera fija, siempre sólida en carbón, con franja de señalización debajo */
+  .cabecera--taller { position: sticky; top: 0; z-index: 40; background: var(--c-texto); color: var(--c-fondo); }
+  .cabecera--taller::after { content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 5px; background: repeating-linear-gradient(-45deg, var(--c-primario) 0 10px, transparent 10px 20px); pointer-events: none; }
+  .cabecera--taller .cabecera-fila { min-height: var(--alto-cabecera); }
+  .cabecera--taller .marca-inicial { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; flex-shrink: 0; background: var(--c-primario); color: var(--sobre-primario); font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.5rem; clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%); }
+  .cabecera--taller .marca-nombre { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; font-size: 1.35rem; letter-spacing: .02em; }
+  .cabecera--taller .cabecera-nav { gap: 1.75rem; }
+  .cabecera--taller .cabecera-nav a { font-family: var(--fuente-titulos); font-stretch: condensed; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; padding-block: .4rem; border-bottom: 3px solid transparent; }
+  .cabecera--taller .cabecera-nav a:hover { border-bottom-color: var(--c-primario); color: var(--c-primario); }
+  .cabecera-telefono { display: none; align-items: center; gap: .5rem; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.2rem; letter-spacing: .03em; text-decoration: none; white-space: nowrap; }
+  .cabecera-telefono svg { color: var(--c-primario); }
+  @media (min-width: 1200px) { .cabecera-telefono { display: inline-flex; } }
+  .cabecera--taller :focus-visible { outline-color: var(--c-primario); }
+  .cabecera--taller .menu-movil summary { min-height: 2.75rem; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 1.05rem; }
+  .cabecera--taller .menu-movil-panel { background: var(--c-texto); color: var(--c-fondo); padding: .5rem 1rem 1.25rem; border-top: 1px solid color-mix(in srgb, var(--c-fondo) 15%, transparent); box-shadow: 0 20px 30px rgb(0 0 0 / .35); }
+  .cabecera--taller .menu-movil-panel a { min-height: 3rem; display: flex; align-items: center; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; font-size: 1.15rem; border-bottom-color: color-mix(in srgb, var(--c-fondo) 12%, transparent); }
+  .cabecera--taller .menu-movil-panel .btn { justify-content: center; }
+
+  /* Formularios */
+  .campo label { font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .campo input, .campo textarea, .campo select { width: 100%; min-height: 3rem; font: inherit; color: var(--c-texto); background: var(--c-fondo); padding: .7rem .85rem; border: 2px solid color-mix(in srgb, var(--c-texto) 30%, transparent); border-radius: 0; }
+  .campo select { appearance: auto; }
+  .campo input:focus, .campo textarea:focus, .campo select:focus { border-color: var(--c-primario); outline: 3px solid color-mix(in srgb, var(--c-primario) 45%, transparent); outline-offset: 0; }
+  .campo-doble { display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .campo-doble { grid-template-columns: 1fr 1fr; } }
+  .formulario .btn { justify-self: stretch; }
+  @media (min-width: 640px) { .formulario .btn { justify-self: start; } }
+  /* Matrícula: el campo imita una placa (franja azul a la izquierda) */
+  .campo-matricula { display: flex; align-items: stretch; border: 2px solid #111; background: #fff; }
+  .campo-matricula-ue { display: grid; place-items: end center; width: 2.1rem; padding-bottom: .3rem; background: #1f3f9a; color: #fff; font-weight: 800; font-size: .8rem; flex-shrink: 0; }
+  .campo .campo-matricula input { border: 0; color: #111; background: #fff; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.45rem; letter-spacing: .14em; text-transform: uppercase; }
+
+  /* Pie */
+  .pie--taller { padding-top: 0; }
+  .pie--taller .pie-cuerpo { padding-top: 4rem; }
+  .pie--taller .pie-rejilla { gap: 2.5rem; }
+  @media (min-width: 768px) { .pie--taller .pie-rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .pie--taller .pie-rejilla { grid-template-columns: 1.6fr 1fr 1fr .8fr; } }
+  .pie--taller .pie-nombre { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; font-size: clamp(2rem, 6vw, 3rem); line-height: .95; }
+  .pie--taller .pie-titulo { color: var(--c-primario); opacity: 1; font-weight: 800; letter-spacing: .18em; }
+  .pie-telefono { display: inline-block; margin-top: 1.25rem; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: clamp(1.75rem, 7vw, 2.6rem); text-decoration: none; color: var(--c-primario); }
+  .pie--taller .pie-redes a { min-width: 2.75rem; min-height: 2.75rem; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--c-fondo) 25%, transparent); }
+
+  /* Barra inferior fija (móvil): Llamar y WhatsApp */
+  .barra-movil { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+  .barra-movil a { display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3.5rem; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; }
+  .barra-movil-llamar { background: var(--c-primario); color: var(--sobre-primario); }
+  .barra-movil-whatsapp { background: var(--c-texto); color: var(--c-fondo); }
+  body:has(.barra-movil) { padding-bottom: 3.5rem; }
+  @media (min-width: 768px) {
+    .barra-movil { display: none; }
+    body:has(.barra-movil) { padding-bottom: 0; }
+  }
+
+  .texto-largo h2 { font-size: 1.6rem; }
+}

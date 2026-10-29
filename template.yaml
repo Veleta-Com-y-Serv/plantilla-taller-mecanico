@@ -1,0 +1,92 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: taller-mecanico
+nombre: Taller mecánico
+descripcion: "Web industrial a todo el ancho para talleres: servicios, marcas, tarifas claras y cita previa con matrícula."
+sectores:
+  - { id: taller, nombre: Taller }
+  - { id: mecanico, nombre: Mecánica }
+  - { id: neumaticos, nombre: Neumáticos }
+  - { id: chapa-pintura, nombre: Chapa y pintura }
+  - { id: itv, nombre: ITV y pre-ITV }
+  - { id: concesionario, nombre: Concesionario }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: servicios, nombre: Servicios }
+  - { id: marcas, nombre: Marcas }
+  - { id: sobre, nombre: El taller }
+  - { id: cita, nombre: Cita previa }
+  - { id: tarifas, nombre: Tarifas }
+  - { id: cifras, nombre: Cifras }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: industrial
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-taller-mecanico.noexpertise.com
+activa: true
+orden: 260
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu taller"
+    pregunta: "¿Cómo se llama tu taller y qué le hacéis a los coches?"
+    ayuda: "Mecánica, neumáticos, chapa y pintura… y en qué pueblo o barrio estáis."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde está el taller, qué horario tenéis y cómo os pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: servicios
+    titulo: "Tus servicios"
+    pregunta: "¿Qué trabajos hacéis? Uno por línea: revisiones, frenos, neumáticos, diagnosis…"
+    tipo: texto
+    campos: [secciones.servicios.titulo, secciones.servicios.texto, secciones.servicios.items]
+  - id: marcas
+    titulo: "Marcas"
+    pregunta: "¿Con qué marcas trabajáis más? ¿Sois multimarca o especialistas en alguna?"
+    ayuda: "Solo los nombres. Si no quieres este apartado, sáltalo."
+    tipo: texto
+    campos: [secciones.marcas.titulo, secciones.marcas.texto, secciones.marcas.items]
+  - id: sobre
+    titulo: "El taller"
+    pregunta: "Cuéntame la historia del taller: desde cuándo estáis, cuántos sois y qué os diferencia."
+    tipo: texto
+    campos: [secciones.sobre.titulo, secciones.sobre.texto, secciones.sobre.items]
+  - id: cita
+    titulo: "Cita previa"
+    pregunta: "¿Cómo pide cita un cliente? ¿Le llamáis, le dais presupuesto antes, tenéis coche de cortesía?"
+    tipo: texto
+    campos: [secciones.cita.titulo, secciones.cita.texto, secciones.cita.items, secciones.cita.nota]
+  - id: tarifas
+    titulo: "Tus tarifas"
+    pregunta: "Dime los trabajos con precio que quieras enseñar, uno por línea (por ejemplo «Cambio de aceite, desde 69 €»)."
+    ayuda: "Si prefieres no poner precios, sáltalo: los añades luego en Contenido."
+    tipo: lista
+    campos: [secciones.tarifas.tarifas]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan más a menudo en el mostrador? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada del taller y, si quieres, alguna más."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.sobre.imagen, secciones.sobre.galeria, secciones.cita.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

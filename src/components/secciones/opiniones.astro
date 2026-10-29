@@ -1,0 +1,44 @@
+---
+// Opiniones: banda clara a todo el ancho con las opiniones en columnas separadas por filetes, sin tarjetas:
+// comilla naranja enorme, texto grande, autor y `nota` (trabajo y barrio). `testimonios: [{texto, autor, nota}]`.
+// Sin opiniones solo se pinta el titular (o nada si tampoco hay). No inventes opiniones.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const testimonios = s ? s.testimonios.filter((t) => t && t.texto) : [];
+const hayAlgo = s && (testimonios.length > 0 || s.titulo || s.texto);
+---
+
+{
+  s && hayAlgo && (
+    <Seccion id={Astro.props.id} class="banda-clara">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {testimonios.length > 0 && (
+        <ul class="opiniones" style={`--n:${Math.min(testimonios.length, 3)}`}>
+          {testimonios.map((t) => (
+            <li class="opinion">
+              <span class="opinion-comilla" aria-hidden="true">“</span>
+              <blockquote class="opinion-texto">{t.texto}</blockquote>
+              <p class="mt-6 font-display text-xl uppercase [font-stretch:condensed]">{t.autor}</p>
+              {t.nota && <p class="text-sm font-semibold text-acento">{t.nota}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .opiniones { display: grid; border-top: 3px solid var(--c-texto); }
+  @media (min-width: 900px) { .opiniones { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); } }
+  .opinion { display: flex; flex-direction: column; padding: 2rem 0; border-bottom: 1px solid var(--linea); }
+  @media (min-width: 900px) {
+    .opinion { padding: 2.5rem 2.5rem 1rem; border-bottom: 0; border-left: 1px solid var(--linea); }
+    .opinion:first-child { padding-left: 0; border-left: 0; }
+  }
+  .opinion-comilla { font-family: Georgia, "Times New Roman", serif; font-size: 6rem; line-height: .7; height: 3rem; color: var(--c-primario); }
+  .opinion-texto { flex: 1; margin-top: .5rem; font-size: clamp(1.15rem, 2.2vw, 1.35rem); line-height: 1.5; }
+</style>

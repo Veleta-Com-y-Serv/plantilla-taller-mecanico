@@ -1,0 +1,56 @@
+---
+// Servicios: banda clara a todo el ancho con cabecera partida (titular a la izquierda, texto y botón a la derecha)
+// y rejilla densa de celdas separadas por filetes, sin tarjetas: número, icono naranja, título y texto.
+// `items: [{titulo, texto, icono}]` (6-8 queda mejor). Sus títulos son las opciones de «¿Qué le hacemos?» del
+// formulario de cita. Al pasar el ratón, la celda se vuelve carbón.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} class="banda-clara">
+      <div class="grid gap-6 lg:grid-cols-[1.25fr_1fr] lg:items-end lg:gap-16">
+        <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} />
+        {(s.texto || s.cta) && (
+          <div class="lg:pb-2">
+            {s.texto && <p class="text-lg opacity-85 md:text-xl">{s.texto}</p>}
+            {s.cta && <a class="btn mt-6" href={s.cta.url}>{s.cta.texto}</a>}
+          </div>
+        )}
+      </div>
+      {items.length > 0 && (
+        <ul class="servicios-rejilla mt-12 md:mt-16">
+          {items.map((it, i) => (
+            <li class="servicio">
+              <span class="servicio-num num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span class="servicio-icono"><Icono nombre={it.icono} tam={34} /></span>
+              <h3 class="servicio-titulo">{it.titulo}</h3>
+              {it.texto && <p class="servicio-texto">{it.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .servicios-rejilla { display: grid; gap: 1px; background: var(--linea); border-block: 1px solid var(--linea); margin-inline: -1rem; }
+  @media (min-width: 640px) { .servicios-rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-inline: 0; border: 1px solid var(--linea); } }
+  @media (min-width: 1100px) { .servicios-rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .servicio { position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: 1rem; align-content: start; padding: 1.5rem 1rem; background: var(--c-fondo); transition: background-color .2s ease, color .2s ease; }
+  @media (min-width: 640px) { .servicio { grid-template-columns: 1fr; padding: 2rem 1.75rem 2.25rem; min-height: 15rem; } }
+  .servicio:hover { background: var(--c-texto); color: var(--c-fondo); }
+  .servicio-num { position: absolute; top: 1rem; right: 1rem; font-size: 1rem; letter-spacing: .1em; opacity: .45; }
+  .servicio-icono { grid-row: span 2; color: var(--c-acento); }
+  .servicio:hover .servicio-icono { color: var(--c-primario); }
+  @media (min-width: 640px) { .servicio-icono { grid-row: auto; margin-bottom: 1.5rem; } }
+  .servicio-titulo { font-size: 1.6rem; padding-right: 2rem; }
+  .servicio-texto { margin-top: .6rem; font-size: .98rem; line-height: 1.5; opacity: .8; }
+</style>
