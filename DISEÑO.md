@@ -51,3 +51,8 @@ que lee quien (persona o agente) rediseñe la plantilla.
 - **Qué no hacer**: tarjetas blancas flotando en una caja estrecha; bordes de sección en diagonal y amarillo
   obra (son de `reformas-oficios`); logotipos de marcas de coches; precios o cifras inventados en los
   componentes.
+
+## Páginas propias (fichas)
+Piel industrial: banda carbón con rejilla técnica y franja de señalización, título en mayúsculas estrechas, foto con esquina de chapa cortada (sin foto, icono grande sobre naranja), caja de cita naranja achaflanada y otros servicios en celdas con filetes. Cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.

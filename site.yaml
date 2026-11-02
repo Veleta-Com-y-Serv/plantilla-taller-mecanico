@@ -52,11 +52,51 @@ secciones:
     texto: "Turismos, furgonetas, híbridos y eléctricos. Con recambio de primera marca y garantía por escrito."
     cta: { texto: Pide cita para tu coche, url: "/#cita" }
     items:
-      - { titulo: Revisión y mantenimiento, texto: "Aceite, filtros y puntos de control según el libro del fabricante. Sin perder la garantía.", icono: llave }
-      - { titulo: Frenos, texto: "Pastillas, discos, líquido y prueba en banco de frenos.", icono: freno }
-      - { titulo: Neumáticos, texto: "Montaje, equilibrado, alineado y almacenaje de tus ruedas de invierno.", icono: rueda }
-      - { titulo: Diagnosis electrónica, texto: "Leemos las averías de la centralita y te explicamos qué pasa.", icono: diagnosis }
-      - { titulo: Aire acondicionado, texto: "Carga de gas, revisión de fugas y limpieza del circuito.", icono: copo }
+      - titulo: Revisión y mantenimiento
+        texto: "Aceite, filtros y puntos de control según el libro del fabricante. Sin perder la garantía."
+        icono: llave
+        detalle: |
+          La revisión periódica es lo que más barato le sale a tu coche a largo plazo. Seguimos el libro de mantenimiento del fabricante, con el aceite y los filtros que corresponden a tu motor, y dejamos anotada cada operación para que tu coche conserve su garantía y su historial en regla.
+
+          Además de lo que marca el plan, repasamos con calma lo que casi nadie mira: estado de las correas, niveles, luces, escobillas, holguras de la suspensión, desgaste de frenos y presión de las ruedas. Si vemos algo que conviene vigilar, te lo enseñamos en el coche y te decimos si hay prisa o puede esperar a la siguiente visita.
+
+          Antes de empezar te damos el presupuesto cerrado y, al terminar, te devolvemos las piezas sustituidas y una hoja con todo lo que hemos hecho. Si lo necesitas, te prestamos un coche de cortesía mientras trabajamos con el tuyo, y te avisamos por mensaje cuando esté listo para recogerlo.
+      - titulo: Frenos
+        texto: "Pastillas, discos, líquido y prueba en banco de frenos."
+        icono: freno
+        detalle: |
+          Los frenos no admiten medias tintas. Cuando traes el coche por un ruido, una vibración en el pedal o un recorrido raro, lo primero que hacemos es desmontar las ruedas y medir el estado real de pastillas, discos, pinzas y latiguillos, sin cambiar nada que todavía esté bien.
+
+          Trabajamos con recambio de primera marca y sustituimos siempre por ejes completos, para que el coche frene recto y sin sorpresas. Cambiamos también el líquido cuando le toca, porque con el tiempo absorbe humedad y pierde eficacia, y limpiamos y engrasamos las guías para que las pinzas se muevan con libertad.
+
+          Al terminar, pasamos el coche por el banco de frenos y te enseñamos el resultado impreso: reparto entre ruedas, equilibrio entre ejes y eficacia total. Después de unos días de uso, te pedimos que vuelvas a que revisemos el asentamiento de las pastillas, sin coste, para dejarlo todo perfecto.
+      - titulo: Neumáticos
+        texto: "Montaje, equilibrado, alineado y almacenaje de tus ruedas de invierno."
+        icono: rueda
+        detalle: |
+          Los neumáticos son lo único que une tu coche con el asfalto, y en Burgos, con inviernos largos, conviene cuidarlos. Te aconsejamos la medida y el tipo que mejor encajan con tu coche y con el uso que le das: ciudad, carretera o viajes largos con la familia.
+
+          El montaje se hace con máquina de talón suave para no marcar las llantas, y cada rueda se equilibra una por una con su válvula nueva. Si notas que el volante vibra o que el coche tira hacia un lado, revisamos la geometría y alineamos la dirección, y te damos un informe de cómo estaba antes y cómo queda después.
+
+          Si cambias de neumáticos de invierno a verano, nos encargamos del cambio y también podemos guardarte el otro juego en el taller, limpio y etiquetado, hasta que lo necesites. Así no ocupas sitio en casa y no te olvidas de mirar el desgaste y la antigüedad de cada rueda antes de volver a montarla.
+      - titulo: Diagnosis electrónica
+        texto: "Leemos las averías de la centralita y te explicamos qué pasa."
+        icono: diagnosis
+        detalle: |
+          Cuando se enciende un testigo en el cuadro, el coche te está avisando de algo. Conectamos nuestro equipo de diagnosis a la centralita, leemos los códigos de avería guardados y, sobre todo, los interpretamos: un código no es una sentencia, es una pista que hay que comprobar sobre el propio coche.
+
+          Por eso no nos quedamos en la lectura. Verificamos sensores, cableado, masas y conexiones, miramos los datos en directo con el motor en marcha y buscamos la causa real, para no cambiar piezas por probar. Sirve igual para turismos de cualquier año, furgonetas, híbridos y eléctricos.
+
+          Te entregamos un informe con las averías encontradas, lo que hemos comprobado y lo que recomendamos, explicado sin tecnicismos. Si la reparación es nuestra, lo descontamos del presupuesto; si prefieres llevarte el informe a otro sitio, es tuyo. Y cuando borramos los códigos, te avisamos de qué hay que vigilar durante los días siguientes.
+      - titulo: Aire acondicionado
+        texto: "Carga de gas, revisión de fugas y limpieza del circuito."
+        icono: copo
+        detalle: |
+          Un aire acondicionado que enfría poco casi nunca es solo cuestión de gas: suele haber una pequeña fuga o un circuito sucio. Por eso empezamos recuperando el gas que queda, comprobamos la presión y buscamos fugas con aparato y con trazador antes de volver a cargar nada.
+
+          Después hacemos el vacío del circuito para eliminar la humedad, que es el enemigo de los compresores, y cargamos la cantidad exacta de gas y de aceite que indica el fabricante de tu coche. Cambiamos el filtro del habitáculo si hace falta y tratamos los conductos para quitar los malos olores que se acumulan con los años.
+
+          Lo ideal es hacerlo antes de que llegue el calor, cuando el taller todavía tiene huecos y no hay que esperar. Al terminar medimos la temperatura de salida del aire y te la anotamos en la factura, para que veas que el equipo funciona como el primer día y sepas cuándo conviene volver a revisarlo.
       - { titulo: Distribución y embrague, texto: "Kits de distribución, bombas de agua y embragues completos.", icono: engranaje }
       - { titulo: Batería y arranque, texto: "Comprobación gratis de batería, alternador y motor de arranque.", icono: bateria }
       - { titulo: Pre-ITV, texto: "Repasamos el coche antes de la inspección y, si quieres, te lo llevamos.", icono: escudo }
