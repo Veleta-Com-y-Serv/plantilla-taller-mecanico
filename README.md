@@ -8,6 +8,7 @@ Web industrial a todo el ancho para talleres: servicios, marcas, tarifas claras 
 - Formulario de cita previa con matrícula (aspecto de placa), marca y modelo, día preferido y servicio (las opciones salen de `servicios.items`); sin servidor (`mailto`).
 - Barra inferior fija en móvil con «Llamar» y «WhatsApp».
 - SEO de base incluido (`src/lib/seo.ts`): canónica, og:image, JSON-LD del negocio (`AutoRepair`) y de las preguntas frecuentes, `robots.txt`, `sitemap.xml` y `llms.txt`; `noindex` si `seo.indexable: false`.
+- Varias páginas (opcional, `paginas:` en la raíz de `site.yaml`): Inicio + una página por entrada (`{ ruta, titulo, secciones: "a; b" }`, hasta 6) con el menú hecho solo; reparto recomendado en `template.yaml → paginas`. Sin la clave, una sola página larga.
 - Contenido editable en `site.yaml`; metadatos y guion del asistente en `template.yaml`; reglas para el agente en `CLAUDE.md`; brief de diseño en `DISEÑO.md`; fotos a generar en `fotos.json`.
 
 ```
